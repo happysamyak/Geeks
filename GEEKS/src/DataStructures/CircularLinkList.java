@@ -45,10 +45,11 @@ static Node start;
 		}
 
 	}
-	private void insertend(int num) {
+private void insertend(int num) {
 		Node p=new Node();
 		p.data=num;
 		Node temp=start;
+                Node pre=start;
 		if(start==null)
 		{
 			start=p;
@@ -58,9 +59,10 @@ static Node start;
 		{
 			while(temp.link!=start)
 			{
+                                pre=temp;
 				temp=temp.link;
 			}
-			temp.link=p;
+			pre.link=p;
 			p.link=start;
 		}
 	}
@@ -78,43 +80,39 @@ static Node start;
 		}
 		return c;
 	}
-	private boolean  delete(int pos) {
-	//Considering the first node inseretd as the starting position		
-		Node p=start;int del;
+private boolean  delete(int pos) {
+	//Considering the first node inseretd as the starting position
+				Node p=start;int del;
 		int i=2;
+                Node temp=start;
 		int c=count();
 		if(c>0)
 		{
-			if(pos==1)		
-			{
-				pos=c+1;
+			if(pos==1)
+					{
+				                              if(start.link!=start)
+                                                             {
+                                                                   while(temp.link!=start)
+                                                                   temp=temp.link;
+                                               
+                                                                   }
 				System.out.println("pos= "+pos);
-				start=p.link;
-				if(pos==2)
-					start=null;
+				start=start.link;
+                                temp.link=start;
+                                return 1;
+
 			}
-			while(i<pos)
-			{
-				p=p.link;
-				i++;
-			}
+			while(i<pos-1)
+			{p=p.link;i++;}
 			del=p.link.data;
 			p.link=p.link.link;
-			if(pos==count()+1)
-			{
-				start=p;
-			}
-			System.out.println("The deleted node is "+del);
-			return true;
-		}
+			if(pos==count()+1){start=p;}
+			System.out.println("The deleted node is "+del);return true;}
 		else
-		{
-			
-			return false;
-		}
-		
-		
+		{return false;}
+	
 	}
+
 
 	private  void display() {
 		// TODO Auto-generated method stub
